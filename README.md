@@ -11,9 +11,10 @@
 3. [如何在禁止上传文件的群内上传日志](/doc/upload_log_to_group)
 4. [如何更改系统默认DNS -Windows11](/doc/change_dns_11)
 5. [如何更改系统默认DNS -Windows10 或更低](/doc/change_dns_10)
+6. [快速按钮](/doc/quick_button)
 
 ### 杂谈
 
 1. [跨网 QoS 相关问题帖子存档](/misc/QoS_archive)
 2. [Byte/bit 单位换算问题](/misc/byte_bit_question)
-3. 
+3. tbd
