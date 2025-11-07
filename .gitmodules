@@ -1,0 +1,8 @@
+[submodule "noname"]
+	path = noname
+	url = https://github.com/libnoname/noname.git
+	branch = PR-Branch
+[submodule "EdgeRemover"]
+	path = EdgeRemover
+	url = https://github.com/he3als/EdgeRemover.git
+	branch = main
