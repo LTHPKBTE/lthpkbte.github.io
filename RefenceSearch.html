@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问答存档库 - 索引搜索</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        #search-input, #tag-filter { padding: 0.5em; width: 100%; margin-bottom: 1em; box-sizing: border-box; }
+        #tags-container { margin-bottom: 1em; }
+        .tag { cursor: pointer; background-color: #eee; padding: 0.3em 0.6em; border-radius: 3px; margin-right: 5px; display: inline-block; }
+        .tag.active { background-color: #007bff; color: white; }
+        .entry { border: 1px solid #ccc; border-radius: 5px; padding: 1em; margin-bottom: 1em; }
+        .entry h3 { margin-top: 0; }
+        .entry .meta { font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+
+    <h1>问答存档库 - 索引搜索</h1>
+    <input type="text" id="search-input" placeholder="搜索标题和内容...">
+    <div id="tags-container"></div>
+    <div id="results-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const tagsContainer = document.getElementById('tags-container');
+            const resultsContainer = document.getElementById('results-container');
+            let entries = [];
+            let allTags = new Set();
+            let activeTag = null;
+
+            function parseMarkdown(markdown) {
+                const lines = markdown.split('\n');
+                const entries = [];
+                let currentEntry = null;
+                const archiveSection = markdown.split('## 问答存档库')[1];
+                if (!archiveSection) return [];
+
+                const entrySections = archiveSection.split('### N.').slice(1);
+
+                for (const section of entrySections) {
+                    const lines = section.split('\n');
+                    const id = "N." + lines[0].trim();
+                    const content = lines.slice(1).join('\n');
+                    
+                    const indexMatch = content.match(/索引：(.*)/);
+                    const tags = indexMatch ? indexMatch[1].split('、').map(t => t.trim()).filter(t => t) : [];
+                    tags.forEach(tag => allTags.add(tag));
+
+                    const updateMatch = content.match(/last update: (.*)/);
+                    const lastUpdate = updateMatch ? updateMatch[1].trim() : '';
+
+                    entries.push({
+                        id,
+                        tags,
+                        lastUpdate,
+                        content: content,
+                        htmlContent: renderSimpleMarkdown(content)
+                    });
+                }
+                return entries;
+            }
+            
+            function renderSimpleMarkdown(text) {
+                // Basic markdown to HTML conversion
+                return text
+                    .replace(/</g, '&lt;').replace(/>/g, '&gt;') // Escape HTML
+                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>') // Links
+                    .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
+                    .replace(/\n/g, '<br>'); // Newlines
+            }
+
+
+            function renderTags() {
+                tagsContainer.innerHTML = '';
+                const allTagButton = document.createElement('span');
+                allTagButton.className = 'tag';
+                allTagButton.textContent = '所有';
+                allTagButton.onclick = () => {
+                    activeTag = null;
+                    renderTags();
+                    renderEntries();
+                };
+                if (activeTag === null) {
+                    allTagButton.classList.add('active');
+                }
+                tagsContainer.appendChild(allTagButton);
+
+                allTags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    tagElement.onclick = () => {
+                        activeTag = tag;
+                        renderTags();
+                        renderEntries();
+                    };
+                    if (activeTag === tag) {
+                        tagElement.classList.add('active');
+                    }
+                    tagsContainer.appendChild(tagElement);
+                });
+            }
+
+            function renderEntries() {
+                const searchTerm = searchInput.value.toLowerCase();
+                resultsContainer.innerHTML = '';
+
+                const filteredEntries = entries.filter(entry => {
+                    const matchesSearch = !searchTerm ||
+                        entry.id.toLowerCase().includes(searchTerm) ||
+                        entry.content.toLowerCase().includes(searchTerm);
+
+                    const matchesTag = !activeTag || entry.tags.includes(activeTag);
+
+                    return matchesSearch && matchesTag;
+                });
+
+                if (filteredEntries.length === 0) {
+                    resultsContainer.innerHTML = '<p>没有找到匹配的条目。</p>';
+                    return;
+                }
+
+                filteredEntries.forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.className = 'entry';
+                    entryElement.innerHTML = `
+                        <h3>${entry.id}</h3>
+                        <div class="meta">
+                            <strong>标签:</strong> ${entry.tags.join(', ') || '无'}<br>
+                            <strong>最后更新:</strong> ${entry.lastUpdate || '未知'}
+                        </div>
+                        <hr>
+                        <div>${entry.htmlContent}</div>
+                    `;
+                    resultsContainer.appendChild(entryElement);
+                });
+            }
+
+            fetch('/QuickRefence.md')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应错误');
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    entries = parseMarkdown(markdown);
+                    renderTags();
+                    renderEntries();
+                })
+                .catch(error => {
+                    resultsContainer.innerHTML = `<p>加载 QuickRefence.md 失败: ${error.message}</p>`;
+                });
+
+            searchInput.addEventListener('input', renderEntries);
+        });
+    </script>
+
+</body>
+</html>

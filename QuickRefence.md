@@ -65,7 +65,9 @@ Copyright © Simon Tatham 1999<br>
 <https://www.chiark.greenend.org.uk/~sgtatham/bugs-cn.html> <br>
 licensed under OPL v1
 
-## 可能需要重复回答的内容提取
+## 问答存档库
+
+快速索引/搜索页：[RefenceSearch.html](/RefenceSearch.html)
 
 ### N.001
 
