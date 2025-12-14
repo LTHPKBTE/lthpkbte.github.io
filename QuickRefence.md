@@ -181,7 +181,25 @@ last update: 2025/12/12
 
 ### N.007
 
-索引：
+索引：Windows、通用、杀毒、拦截  
+last update: 2025/12/14
+
+如果你被介绍来查看这个页面，说明你很可能弄混或不了解 “防火墙” 在 PC 及网络中指的是什么  
+以下将会简要介绍 Windows 中的相关组件。  
+除 UCPD 驱动外，其他功能介绍均来自微软官方。[^1]
+
+| 组件 | 系列 | 功能 |
+|---|---|---|
+| Defender 防病毒 （Antivirus） | Microsoft Defender | 实时防护，防御病毒、恶意软件、间谍软件和勒索软件等威胁。 |
+| Defender 防火墙 （Firewall） | Microsoft Defender | 过滤入站和出站网络流量，防止未经授权的访问。 |
+| Defender 基于信誉的保护 （SmartScreen） | Microsoft Defender | 基于云和信誉的防护，用于抵御钓鱼网站、恶意软件和不安全的应用。 |
+| 智能应用控制 （Smart App Control） | 安全中心 | 阻止运行不受信任或有潜在危险的应用，需要全新安装的 Windows 11。 |
+| 用户帐户控制 （User Account Control） | 安全中心 | 在需要管理员级别权限的操作之前请求您的许可，以防止对您的操作系统进行未经授权的更改。 |
+| 攻击防护 （Exploit Protection） | 安全中心 | 帮助保护您的设备免受使用漏洞传播和感染的恶意软件的侵害。 |
+| 用户选择保护驱动程序 （UserChoice Protection Driver） | 未知 | 阻止程序更改部分注册表和选项、并阻止绝大多数更改默认应用的方法 |
+
+根据群友的报告，当微软抽风的时候，Defender Antivirus、Defender SmartScreen、Smart App Control 机制可能会影响 frpc 的运行，但防火墙除非手动添加规则，否则默认防火墙还未有拦截的先例。  
+TIPS：frp 本身就是为了暴露防火墙内的端口[^2] 而开发的
 
 ### N.008
 
@@ -190,3 +208,9 @@ last update: 2025/12/12
 ### N.009
 
 索引：
+
+### 注释
+
+[^1]: <https://learn.microsoft.com/> , <https://kolbi.cz/blog/2025/07/15/ucpd-sys-userchoice-protection-driver-part-2/>
+
+[^2]: <https://github.com/fatedier/frp> , About: "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet. "
