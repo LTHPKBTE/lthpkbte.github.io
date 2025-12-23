@@ -2,3 +2,7 @@
 	path = EdgeRemover
 	url = https://github.com/he3als/EdgeRemover.git
 	branch = main
+[submodule "treefor"]
+	path = treefor
+	url = https://github.com/xdzz11/treefor.git
+	branch = main
