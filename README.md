@@ -8,6 +8,7 @@
 
 1. [快速问答/重复问答内容手册](/QuickRefence)
 2. [查看我的几个设备是否还活着](/status.html)
+3. [EdgeRemover](/EdgeRemover/RemoveEdge.ps1)
 
 ### 文档
 
