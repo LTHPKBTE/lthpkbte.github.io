@@ -4,5 +4,5 @@
 	branch = main
 [submodule "treefor"]
 	path = treefor
-	url = https://github.com/xdzz11/treefor.git
+	url = https://github.com/LTHPKBTE/treefor.git
 	branch = main
