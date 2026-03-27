@@ -446,7 +446,7 @@ last update: 2025/12/14
 除 UCPD 驱动外，其他功能介绍均来自微软官方。[^1]
 
 | 组件 | 系列 | 功能 |
-|---|---|---|
+| --- | --- | --- |
 | Defender 防病毒 （Antivirus） | Microsoft Defender | 实时防护，防御病毒、恶意软件、间谍软件和勒索软件等威胁。 |
 | Defender 防火墙 （Firewall） | Microsoft Defender | 过滤入站和出站网络流量，防止未经授权的访问。 |
 | Defender 基于信誉的保护 （SmartScreen） | Microsoft Defender | 基于云和信誉的防护，用于抵御钓鱼网站、恶意软件和不安全的应用。 |
