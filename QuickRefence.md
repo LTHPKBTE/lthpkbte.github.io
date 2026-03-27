@@ -441,21 +441,24 @@ last update: 2025/12/12
 索引：Windows、通用、杀毒、拦截  
 last update: 2025/12/14
 
-如果你被介绍来查看这个页面，说明你很可能弄混或不了解 “防火墙” 在 PC 及网络中指的是什么  
-以下将会简要介绍 Windows 中的相关组件。  
-除 UCPD 驱动外，其他功能介绍均来自微软官方。[^1]
+如果你是被介绍来看这个页面的，那么你大概率是把 PC 或网络环境中的“防火墙”与 Windows 里的其他安全组件混在了一起，或者还不太清楚它们各自负责什么。
 
-| 组件 | 系列 | 功能 |
+下面会用简要、通俗的方式介绍 Windows 中几个常见的安全相关组件，方便区分它们的作用。  
+除 UCPD 驱动外，其余条目的介绍均参考微软官方说明。[^1]
+
+| 组件 | 系列 | 通俗说明 |
 | --- | --- | --- |
-| Defender 防病毒 （Antivirus） | Microsoft Defender | 实时防护，防御病毒、恶意软件、间谍软件和勒索软件等威胁。 |
-| Defender 防火墙 （Firewall） | Microsoft Defender | 过滤入站和出站网络流量，防止未经授权的访问。 |
-| Defender 基于信誉的保护 （SmartScreen） | Microsoft Defender | 基于云和信誉的防护，用于抵御钓鱼网站、恶意软件和不安全的应用。 |
-| 智能应用控制 （Smart App Control） | 安全中心 | 阻止运行不受信任或有潜在危险的应用，需要全新安装的 Windows 11。 |
-| 用户帐户控制 （User Account Control） | 安全中心 | 在需要管理员级别权限的操作之前请求您的许可，以防止对您的操作系统进行未经授权的更改。 |
-| 攻击防护 （Exploit Protection） | 安全中心 | 帮助保护您的设备免受使用漏洞传播和感染的恶意软件的侵害。 |
-| 用户选择保护驱动程序 （UserChoice Protection Driver） | 未知 | 阻止程序更改部分注册表和选项、并阻止绝大多数更改默认应用的方法 |
+| Defender 防病毒（Antivirus） | Microsoft Defender | 负责查杀病毒、木马、勒索软件等恶意程序，也会在程序运行、下载或解压时进行实时检查。 |
+| Defender 防火墙（Firewall） | Microsoft Defender | 负责管理网络通信，决定某些程序或端口的联网请求是否允许通过。 |
+| Defender 基于信誉的保护（SmartScreen） | Microsoft Defender | 主要用于拦截可疑网站、恶意下载内容，以及信誉较差或来源不明的程序。 |
+| 智能应用控制（Smart App Control） | 安全中心 | 用于阻止不受信任或高风险程序运行，仅在部分全新安装的 Windows 11 设备上可用。 |
+| 用户帐户控制（User Account Control, UAC） | 安全中心 | 当某项操作需要更高权限时弹出确认，以防程序在未经允许的情况下修改系统。 |
+| 攻击防护（Exploit Protection） | 安全中心 | 用于缓解漏洞利用类攻击，防止某些程序通过系统或应用漏洞执行恶意行为。 |
+| 用户选择保护驱动程序（UserChoice Protection Driver, UCPD） | 未知 | 用于保护部分用户关联设置，防止程序绕过正常流程，直接修改某些默认应用和相关注册表项。 |
 
-根据群友的报告，当微软抽风的时候，Defender Antivirus、Defender SmartScreen、Smart App Control 机制可能会影响 frpc 的运行，但防火墙除非手动添加规则，否则默认防火墙还未有拦截的先例。  
+根据群友反馈，在个别情况下，微软的部分安全机制可能会影响 frpc 的运行；目前较常见的相关项主要是 Defender Antivirus、SmartScreen 和 Smart App Control。  
+相比之下，Windows Defender 防火墙本身并没有“默认就拦截 frpc”的普遍先例；通常只有在手动配置规则、网络环境特殊，或存在其他联动策略时，才可能对其通信造成影响。
+
 TIPS：frp 本身就是为了暴露防火墙内的端口[^2] 而开发的
 
 ### N.008
