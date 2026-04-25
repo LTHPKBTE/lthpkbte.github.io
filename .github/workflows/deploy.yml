@@ -1,0 +1,54 @@
+name: Deploy MkDocs to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install MkDocs Material
+        run: pip install mkdocs-material
+
+      - name: Build MkDocs site
+        run: mkdocs build
+
+      - name: Copy root-level files to site output
+        run: |
+          # 保留根目录的 HTML 文件
+          cp -v status.html site/ 2>/dev/null || true
+          cp -v smartapp.html site/ 2>/dev/null || true
+          cp -v RefenceSearch.html site/ 2>/dev/null || true
+          # 保留 CNAME 自定义域名文件
+          cp -v CNAME site/ 2>/dev/null || true
+          # 保留根目录 assets
+          cp -rv assets site/ 2>/dev/null || true
+          # 保留 EdgeRemover 目录
+          cp -rv EdgeRemover site/ 2>/dev/null || true
+          # 保留 treefor 目录
+          cp -rv treefor site/ 2>/dev/null || true
+          echo "=== site/ directory contents ==="
+          ls -la site/
+          echo "=== site/ directory tree ==="
+          find site/ -maxdepth 3 -type f | head -50
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          cname: ltmc.top
+          keep_files: false

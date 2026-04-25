@@ -1,35 +1,62 @@
-# 杂乱文件储存地
+# LTHC 文档站
 
-这个仓库储存了一些文件，同时 `ltmc.top` 指向这里，用于托管一些文档页面和小文件下载服务。
+这个仓库托管了 `ltmc.top` 的文档站点，使用 **MkDocs + Material for MkDocs** 构建，部署在 GitHub Pages。
 
-本人是超级懒虫，所以这个页面大部分是 github pages 的默认样式。
+## 本地开发
 
-## 目录
+需要 Python 3.x。
 
-1. [快速问答/重复问答内容手册](/QuickRefence)
-2. [查看我的几个设备是否还活着](/status.html)
-3. [EdgeRemover](/EdgeRemover/RemoveEdge.ps1)
+```bash
+pip install mkdocs-material
+mkdocs serve    # 本地预览 http://localhost:8000
+mkdocs build    # 构建静态文件到 site/
+```
 
-### 文档
+## 目录结构
 
-1. [关于 UUID 修复选项](/doc/talk_about_minecraft)
-2. [(UUID变更导致的) 存档丢失补救方法](/doc/fix_save)
-3. [如何在禁止上传文件的群内上传日志](/doc/upload_log_to_group)
-4. [如何更改系统默认DNS -Windows11](/doc/change_dns_11)
-5. [如何更改系统默认DNS -Windows10 或更低](/doc/change_dns_10)
-6. [快速按钮](/doc/quick_button)
+```
+docs/               # MkDocs 文档源目录
+├── index.md        # 首页
+├── QuickRefence.md # 快速问答手册
+├── doc/            # 文档页面
+│   ├── talk_about_minecraft.md
+│   ├── fix_save.md
+│   ├── upload_log_to_group.md
+│   ├── change_dns_11.md
+│   ├── change_dns_10.md
+│   ├── quick_button.md
+│   └── assets/     # 文档图片资源
+└── misc/           # 杂谈页面
+    ├── QoS_archive.md
+    └── byte_bit_question.md
 
-### 杂谈
+# 根目录保留文件（部署时一并发布）
+status.html         # 设备在线状态
+smartapp.html       # 跳转页面
+RefenceSearch.html  # 问答搜索
+EdgeRemover/        # Edge 移除工具
+treefor/            # 树形工具
+assets/reset.webp   # 根级资源
+CNAME               # 自定义域名 ltmc.top
+mkdocs.yml          # MkDocs 配置
+.github/workflows/  # GitHub Actions 部署流水线
+```
 
-1. [跨网 QoS 相关问题帖子存档](/misc/QoS_archive)
-2. [Byte/bit 单位换算问题](/misc/byte_bit_question)
-3. tbd
+## 部署
 
-### Blog
+每次推送到 `main` 分支时，GitHub Actions 会自动：
 
-1. tbd
+1. 安装 MkDocs Material
+2. 运行 `mkdocs build`
+3. 将根目录的 HTML/静态文件复制到构建输出
+4. 通过 `peaceiris/actions-gh-pages` 部署到 `gh-pages` 分支
 
-### 联系方式
+## 链接
 
-1. QQ 2827927233
-2. Bilibili [Java8ver64/106366650](https://space.bilibili.com/106366650)
+- 站点: <https://ltmc.top/>
+- 源码: <https://github.com/lthpkbte/lthpkbte.github.io>
+
+## 联系方式
+
+- QQ: 2827927233
+- Bilibili: [Java8ver64/106366650](https://space.bilibili.com/106366650)

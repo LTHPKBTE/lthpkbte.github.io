@@ -1,0 +1,54 @@
+site_name: LTHC 文档站
+site_url: https://ltmc.top/
+repo_url: https://github.com/lthpkbte/lthpkbte.github.io
+repo_name: lthpkbte/lthpkbte.github.io
+edit_uri: blob/main/docs/
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 切换暗色模式
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 切换亮色模式
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+
+nav:
+  - 首页: index.md
+  - 快速问答手册: QuickRefence.md
+  - 文档:
+    - 关于 UUID 修复: doc/talk_about_minecraft.md
+    - 存档丢失补救: doc/fix_save.md
+    - 上传日志到群: doc/upload_log_to_group.md
+    - 更改 DNS (Win11): doc/change_dns_11.md
+    - 更改 DNS (Win10): doc/change_dns_10.md
+    - 快速按钮: doc/quick_button.md
+  - 杂谈:
+    - 跨网 QoS 存档: misc/QoS_archive.md
+    - 单位换算: misc/byte_bit_question.md

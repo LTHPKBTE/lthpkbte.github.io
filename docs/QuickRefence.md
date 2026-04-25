@@ -418,7 +418,7 @@ Java8ver64: 12-10 21:46:23
 索引：Minecraft、无法加入、refused、reset  
 last update: 2025/12/12
 
-![reset](assets/reset.webp)
+![reset](/assets/reset.webp)
 
 如果您在尝试加入游戏的时候遇到以上报错，请按顺序排查：  
 
