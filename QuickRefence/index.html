@@ -1306,7 +1306,7 @@ Copyleft 2001 by D.H.Grand(nOBODY/Ginux), 2010 by Gasolin, 2015 by Ryan Wu<br />
 <p>有一个古老而神圣的传统：如果你收到RTFM（Read The Fucking Manual）的回应，回答者认为你应该去读他妈的手册。当然，基本上他是对的，你应该去读一读。</p>
 <p>RTFM 有一个年轻的亲戚。如果你收到STFW（Search The Fucking Web）的回应，回答者认为你应该到他妈的网上搜索。那人多半也是对的，去搜索一下吧。（更温和一点的说法是 Google 是你的朋友！）</p>
 <p>通常，用这两句之一回答你的人会给你一份包含你需要内容的手册或者一个网址，而且他们打这些字的时候也正在读着。这些答复意味着回答者认为</p>
-<div class="highlight"><pre><span></span><code>你需要的信息非常容易获得；
+<div class="language-text highlight"><pre><span></span><code>你需要的信息非常容易获得；
 你自己去搜索这些信息比灌给你，能让你学到更多。
 </code></pre></div>
 <h2 id="bug">如何有效地报告 Bug （节选）</h2>
@@ -1648,7 +1648,7 @@ last update: 2025/12/12</p>
 last update: 2025/12/14</p>
 <p>如果你是被介绍来看这个页面的，那么你大概率是把 PC 或网络环境中的“防火墙”与 Windows 里的其他安全组件混在了一起，或者还不太清楚它们各自负责什么。</p>
 <p>下面会用简要、通俗的方式介绍 Windows 中几个常见的安全相关组件，方便区分它们的作用。<br />
-除 UCPD 驱动外，其余条目的介绍均参考微软官方说明。[^1]</p>
+除 UCPD 驱动外，其余条目的介绍均参考微软官方说明。<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></p>
 <table>
 <thead>
 <tr>
@@ -1697,14 +1697,23 @@ last update: 2025/12/14</p>
 </table>
 <p>根据群友反馈，在个别情况下，微软的部分安全机制可能会影响 frpc 的运行；目前较常见的相关项主要是 Defender Antivirus、SmartScreen 和 Smart App Control。<br />
 相比之下，Windows Defender 防火墙本身并没有“默认就拦截 frpc”的普遍先例；通常只有在手动配置规则、网络环境特殊，或存在其他联动策略时，才可能对其通信造成影响。</p>
-<p>TIPS：frp 本身就是为了暴露防火墙内的端口[^2] 而开发的</p>
+<p>TIPS：frp 本身就是为了暴露防火墙内的端口<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> 而开发的</p>
 <h3 id="n008">N.008</h3>
 <p>索引：</p>
 <h3 id="n009">N.009</h3>
 <p>索引：</p>
 <h3 id="_6">注释</h3>
-<p>[^1]: <a href="https://learn.microsoft.com/">https://learn.microsoft.com/</a> , <a href="https://kolbi.cz/blog/2025/07/15/ucpd-sys-userchoice-protection-driver-part-2/">https://kolbi.cz/blog/2025/07/15/ucpd-sys-userchoice-protection-driver-part-2/</a></p>
-<p>[^2]: <a href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a> , About: "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet. "</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p><a href="https://learn.microsoft.com/">https://learn.microsoft.com/</a> , <a href="https://kolbi.cz/blog/2025/07/15/ucpd-sys-userchoice-protection-driver-part-2/">https://kolbi.cz/blog/2025/07/15/ucpd-sys-userchoice-protection-driver-part-2/</a>&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p><a href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a> , About: "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet. "&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
 
 
