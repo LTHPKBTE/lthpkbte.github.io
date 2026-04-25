@@ -6,23 +6,23 @@
 
 ## 快速导航
 
-- [:fontawesome-solid-book: 快速问答手册](QuickRefence.md) — 提问的智慧与常见问答
-- [:fontawesome-solid-server: 在线状态](/status.html) — 查看设备是否在线
-- [:fontawesome-solid-download: EdgeRemover](/EdgeRemover/RemoveEdge.ps1) — 移除 Microsoft Edge 脚本
+- [快速问答手册](QuickRefence.md) — 提问的智慧与常见问答
+- [在线状态](/status.html) — 查看设备是否在线
+- [EdgeRemover](/EdgeRemover/RemoveEdge.ps1) — 移除 Microsoft Edge 脚本
 
 ### 文档
 
-- [:fontawesome-solid-cube: 关于 UUID 修复](doc/talk_about_minecraft.md) — 联机模组的 UUID 修复说明
-- [:fontawesome-solid-trash: 存档丢失补救](doc/fix_save.md) — UUID 变更导致的存档恢复
-- [:fontawesome-solid-upload: 上传日志到群](doc/upload_log_to_group.md) — 在禁止上传文件的群内分享日志
-- [:fontawesome-solid-globe: 更改 DNS (Win11)](doc/change_dns_11.md) — Windows 11 DNS 设置
-- [:fontawesome-solid-globe: 更改 DNS (Win10)](doc/change_dns_10.md) — Windows 10 DNS 设置
-- [:fontawesome-solid-bolt: 快速按钮](doc/quick_button.md) — 快速打开系统页面
+- [关于 UUID 修复](doc/talk_about_minecraft.md) — 联机模组的 UUID 修复说明
+- [存档丢失补救](doc/fix_save.md) — UUID 变更导致的存档恢复
+- [上传日志到群](doc/upload_log_to_group.md) — 在禁止上传文件的群内分享日志
+- [更改 DNS (Win11)](doc/change_dns_11.md) — Windows 11 DNS 设置
+- [更改 DNS (Win10)](doc/change_dns_10.md) — Windows 10 DNS 设置
+- [快速按钮](doc/quick_button.md) — 快速打开系统页面
 
 ### 杂谈
 
-- [:fontawesome-solid-network-wired: 跨网 QoS 存档](misc/QoS_archive.md) — 相关帖子存档
-- [:fontawesome-solid-calculator: 单位换算](misc/byte_bit_question.md) — Byte/bit 单位换算说明
+- [跨网 QoS 存档](misc/QoS_archive.md) — 相关帖子存档
+- [单位换算](misc/byte_bit_question.md) — Byte/bit 单位换算说明
 
 ---
 
