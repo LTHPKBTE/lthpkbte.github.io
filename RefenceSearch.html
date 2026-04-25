@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问答存档库 - 索引搜索</title>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            margin: 2em; 
+            transition: background-color 0.3s, color 0.3s;
+        }
+        body.dark-mode {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        #search-input, #tag-filter { 
+            padding: 0.5em; 
+            width: 100%; 
+            margin-bottom: 1em; 
+            box-sizing: border-box; 
+            background-color: inherit;
+            color: inherit;
+            border: 1px solid #ccc;
+        }
+        body.dark-mode #search-input, body.dark-mode #tag-filter {
+            border-color: #555;
+        }
+        #tags-container { margin-bottom: 1em; }
+        .tag { 
+            cursor: pointer; 
+            background-color: #eee; 
+            color: #333;
+            padding: 0.3em 0.6em; 
+            border-radius: 3px; 
+            margin-right: 5px; 
+            display: inline-block; 
+            margin-bottom: 5px;
+        }
+        body.dark-mode .tag {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        .tag.active { 
+            background-color: #007bff; 
+            color: white; 
+        }
+        body.dark-mode .tag.active {
+            background-color: #0056b3;
+        }
+        .entry { 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            padding: 1em; 
+            margin-bottom: 1em; 
+        }
+        body.dark-mode .entry {
+            border-color: #555;
+        }
+        .entry h3 { margin-top: 0; }
+        .entry .meta { font-size: 0.9em; color: #666; }
+        body.dark-mode .entry .meta {
+            color: #aaa;
+        }
+        #theme-toggle {
+            position: fixed;
+            top: 1em;
+            right: 1em;
+            padding: 0.5em 1em;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button id="theme-toggle">切换模式</button>
+    <h1>问答存档库 - 索引搜索</h1>
+    <input type="text" id="search-input" placeholder="搜索标题和内容...">
+    <div id="tags-container"></div>
+    <div id="results-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const tagsContainer = document.getElementById('tags-container');
+            const resultsContainer = document.getElementById('results-container');
+            const themeToggle = document.getElementById('theme-toggle');
+            let entries = [];
+            let allTags = new Set();
+            let activeTags = new Set();
+
+            // Theme toggle
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            });
+
+            // Apply saved theme
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+            }
+
+            function parseMarkdown(markdown) {
+                const archiveSection = markdown.split('## 问答存档库')[1];
+                if (!archiveSection) return [];
+
+                const entrySections = archiveSection.split('### N.').slice(1);
+                const parsedEntries = [];
+
+                for (const section of entrySections) {
+                    const lines = section.split('\n');
+                    const id = "N." + lines[0].trim();
+                    let content = lines.slice(1).join('\n');
+                    
+                    const indexMatch = content.match(/索引：(.*?)(?:\r?\n|$)/);
+                    const tags = indexMatch ? indexMatch[1].split('、').map(t => t.trim()).filter(t => t) : [];
+                    tags.forEach(tag => allTags.add(tag));
+
+                    const updateMatch = content.match(/last update: (.*?)(?:\r?\n|$)/);
+                    const lastUpdate = updateMatch ? updateMatch[1].trim() : '';
+                    
+                    // Remove the metadata lines from the content
+                    content = content.replace(/索引：(.*?)(?:\r?\n|$)/, '');
+                    content = content.replace(/last update: (.*?)(?:\r?\n|$)/, '');
+
+
+                    parsedEntries.push({
+                        id,
+                        tags,
+                        lastUpdate,
+                        content: content.trim(),
+                        htmlContent: renderSimpleMarkdown(content.trim())
+                    });
+                }
+                return parsedEntries;
+            }
+            
+            function renderSimpleMarkdown(text) {
+                return text
+                    .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+                    .replace(/`(.*?)`/g, '<code>$1</code>')
+                    .replace(/\n/g, '<br>');
+            }
+
+            function renderTags() {
+                tagsContainer.innerHTML = '';
+                const clearButton = document.createElement('span');
+                clearButton.className = 'tag';
+                clearButton.textContent = '清空选择';
+                clearButton.onclick = () => {
+                    activeTags.clear();
+                    renderTags();
+                    renderEntries();
+                };
+                tagsContainer.appendChild(clearButton);
+
+                allTags.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    if (activeTags.has(tag)) {
+                        tagElement.classList.add('active');
+                    }
+                    tagElement.onclick = () => {
+                        if (activeTags.has(tag)) {
+                            activeTags.delete(tag);
+                        } else {
+                            activeTags.add(tag);
+                        }
+                        renderTags();
+                        renderEntries();
+                    };
+                    tagsContainer.appendChild(tagElement);
+                });
+            }
+
+            function renderEntries() {
+                const searchTerm = searchInput.value.toLowerCase();
+                resultsContainer.innerHTML = '';
+
+                const filteredEntries = entries.filter(entry => {
+                    const matchesSearch = !searchTerm ||
+                        entry.id.toLowerCase().includes(searchTerm) ||
+                        entry.content.toLowerCase().includes(searchTerm);
+
+                    const matchesTags = activeTags.size === 0 || 
+                                        [...activeTags].every(tag => entry.tags.includes(tag));
+
+                    return matchesSearch && matchesTags;
+                });
+
+                if (filteredEntries.length === 0) {
+                    resultsContainer.innerHTML = '<p>没有找到匹配的条目。</p>';
+                    return;
+                }
+
+                filteredEntries.forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.className = 'entry';
+                    entryElement.innerHTML = `
+                        <h3><a href="/QuickRefence.html#${entry.id.toLowerCase().replace(/\./g, '')}" target="_blank">${entry.id}</a></h3>
+                        <div class="meta">
+                            <strong>标签:</strong> ${entry.tags.join(', ') || '无'}<br>
+                            <strong>最后更新:</strong> ${entry.lastUpdate || '未知'}
+                        </div>
+                        <hr>
+                        <div>${entry.htmlContent}</div>
+                    `;
+                    resultsContainer.appendChild(entryElement);
+                });
+            }
+
+            fetch('/QuickRefence.md')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应错误');
+                    }
+                    return response.text();
+                })
+                .then(markdown => {
+                    entries = parseMarkdown(markdown);
+                    renderTags();
+                    renderEntries();
+                })
+                .catch(error => {
+                    resultsContainer.innerHTML = `<p>加载 QuickRefence.md 失败: ${error.message}</p>`;
+                });
+
+            searchInput.addEventListener('input', renderEntries);
+        });
+    </script>
+
+</body>
+</html>
+
