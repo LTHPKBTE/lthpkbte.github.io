@@ -8,3 +8,6 @@ _site/
 .jekyll-metadata
 /vendor
 Gemfile.lock
+
+# uv runtime
+.venv/
