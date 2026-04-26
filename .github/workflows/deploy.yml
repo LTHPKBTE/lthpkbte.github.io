@@ -12,8 +12,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (with submodules)
         uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -36,10 +38,8 @@ jobs:
           cp -v CNAME site/ 2>/dev/null || true
           # 保留根目录 assets
           cp -rv assets site/ 2>/dev/null || true
-          # 保留 EdgeRemover 目录
+          # 保留 EdgeRemover 子模块目录
           cp -rv EdgeRemover site/ 2>/dev/null || true
-          # 保留 treefor 目录
-          cp -rv treefor site/ 2>/dev/null || true
           echo "=== site/ directory contents ==="
           ls -la site/
           echo "=== site/ directory tree ==="

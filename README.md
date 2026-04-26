@@ -34,8 +34,7 @@ docs/               # MkDocs 文档源目录
 status.html         # 设备在线状态
 smartapp.html       # 跳转页面
 RefenceSearch.html  # 问答搜索
-EdgeRemover/        # Edge 移除工具
-treefor/            # 树形工具
+EdgeRemover/        # Edge 移除工具（git 子模块）
 assets/reset.webp   # 根级资源
 CNAME               # 自定义域名 ltmc.top
 mkdocs.yml          # MkDocs 配置
