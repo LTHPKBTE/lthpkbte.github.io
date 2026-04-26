@@ -2,7 +2,3 @@
 	path = EdgeRemover
 	url = https://github.com/he3als/EdgeRemover.git
 	branch = main
-[submodule "treefor"]
-	path = treefor
-	url = https://github.com/LTHPKBTE/treefor.git
-	branch = main
