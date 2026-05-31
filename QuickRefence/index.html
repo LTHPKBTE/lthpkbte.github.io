@@ -1585,6 +1585,7 @@ licensed under OPL v1</p>
 <li>端口是否填错？</li>
 <li>防火墙是否放行？</li>
 <li>IP 是否正确？</li>
+<li>权限是否不足？</li>
 <li>日志里的报错是什么意思？</li>
 <li>为什么连接失败？</li>
 <li>下一步应该怎么排查？</li>
@@ -1592,10 +1593,10 @@ licensed under OPL v1</p>
 <p>这会导致回答者必须先反过来帮你整理问题，甚至替你提问。<br />
 例如原本你可以直接说明：</p>
 <blockquote>
-<p>我想让客户端连接服务器，但连接失败。<br />
-我不确定应该开放哪个端口。<br />
-当前配置里 <code>server-port=25565</code>，但我看到还有 <code>query.port</code>、<code>rcon.port</code>、<code>management-server-port</code>。<br />
-请问客户端联机需要开放哪个端口？</p>
+<p>我想在服务器上部署一个 Web 服务，但外部访问不到。
+我不确定是 Nginx 配置问题还是防火墙问题。
+当前 Nginx 监听 80 端口，<code>ufw status</code> 显示 80 已放行，但 <code>curl localhost</code> 正常、外网访问却返回 Connection Refused。
+请问下一步应该检查哪里？</p>
 </blockquote>
 <p>但如果你只说：</p>
 <blockquote>
@@ -1608,36 +1609,38 @@ licensed under OPL v1</p>
 <p>你想做什么</p>
 <p>例：</p>
 <ul>
-<li>“我想让别人通过公网加入我的服务器。”</li>
+<li>"我想在服务器上部署一个 Web 服务并能通过公网访问。"</li>
+<li>"我想让本地的后端程序能连上远程数据库。"</li>
 </ul>
 <p>现在遇到了什么现象</p>
 <p>例：</p>
 <ul>
-<li><strong>“客户端连接失败 / 无法加入 / 提示超时 / 端口检测不通。”</strong></li>
+<li><strong>"外网访问返回 Connection Refused / 超时 / 端口检测不通。"</strong></li>
+<li><strong>"程序启动时报连接超时，但目标服务是运行中的。"</strong></li>
 </ul>
 <p>你希望别人帮你判断什么</p>
 <p>例：</p>
 <ul>
-<li><strong>“我不确定应该开放哪个端口。”</strong></li>
-<li><strong>“我不确定 <code>server-port</code> 和 <code>query.port</code> 哪个才是客户端连接端口。”</strong></li>
-<li><strong>“请问下一步应该检查防火墙、端口映射还是配置文件？”</strong></li>
+<li><strong>"我不确定问题是出在应用配置、系统防火墙还是云服务商的安全组。"</strong></li>
+<li><strong>"我不确定连接字符串里的 host 应该填内网地址还是公网地址。"</strong></li>
+<li><strong>"请问下一步应该检查哪一层：应用配置、系统防火墙还是网络策略？"</strong></li>
 </ul>
 <p>推荐写法示例：</p>
 <blockquote>
-<p>我想让别人连接我的 Minecraft 服务器。<br />
-目前服务器配置里有这些端口：<br />
-<code>server-port=25565</code><br />
-<code>query.port=25565</code><br />
-<code>rcon.port=25575</code>  </p>
-<p>我的问题是：<br />
-<strong>客户端联机时到底需要放行哪个端口？</strong>  </p>
-<p>我已经做过：<br />
-- 检查 <code>server.properties</code><br />
-- 尝试放行 25565<br />
-- 查看防火墙设置  </p>
-<p>但现在仍然无法连接，想确认下一步应该排查哪里。</p>
+<p>我想在一台刚装完系统的 VPS 上部署一个 API 服务，让它能通过公网被调用。
+目前的情况：
+- 服务已启动，监听 <code>127.0.0.1:3000</code>
+- <code>curl http://127.0.0.1:3000/api/health</code> 在本机正常返回
+- 但用公网 IP 访问时直接超时</p>
+<p>我的问题是：
+<strong>从本机 curl 通但外网不通，应该从哪一层开始排查？</strong></p>
+<p>我已经做过：
+- 确认服务正在运行
+- 检查云服务商控制台的安全组，已放行 3000 端口
+- 用 <code>ss -tlnp</code> 确认端口在监听</p>
+<p>但现在外网仍然无法访问，想确认下一步应该排查哪里。</p>
 </blockquote>
-<p>如果你只是想让别人帮你看截图，也应当说明“看什么”。</p>
+<p>如果你只是想让别人帮你看截图，也应当说明"看什么"。</p>
 <p>注意事项：</p>
 <ul>
 <li><strong>“有人吗”“帮我看看”“这咋办”不算有效问题。</strong></li>
