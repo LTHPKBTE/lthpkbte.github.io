@@ -10,6 +10,30 @@
 - [在线状态](/status.html) — 查看设备是否在线
 - [EdgeRemover](/EdgeRemover/RemoveEdge.ps1) — 移除 Microsoft Edge 脚本
 
+EdgeRemover 使用方法：
+
+!!! warning "安全警告"
+    在任何人（包括我）让你执行 `iex irm` 组合命令时，**请务必先审查脚本内容再执行**：
+
+    ``` powershell
+    # 获取脚本并逐页查看，确认内容安全
+    irm https://ltmc.top/EdgeRemover/RemoveEdge.ps1 | more
+    ```
+
+    也可以保存到文件后用编辑器打开阅读：
+
+    ``` powershell
+    # 保存为临时文件，用记事本查看
+    irm https://ltmc.top/EdgeRemover/RemoveEdge.ps1 > $env:TEMP\review.ps1
+    notepad $env:TEMP\review.ps1
+    ```
+
+    **确认无误后**再执行：
+
+``` powershell
+irm https://ltmc.top/EdgeRemover/RemoveEdge.ps1 | iex
+```
+
 ### 文档
 
 - [关于 UUID 修复](doc/talk_about_minecraft.md) — 联机模组的 UUID 修复说明
