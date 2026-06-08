@@ -1,5 +1,5 @@
 ---
-description: "Use when creating or editing MkDocs documentation pages for the LTHC 文档站. Covers Material theme features, enabled Markdown extensions, writing conventions, and navigation structure."
+description: "Use when creating or editing MkDocs documentation pages for the 个人杂谈站. Covers Material theme features, enabled Markdown extensions, writing conventions, and navigation structure."
 applyTo: "docs/**/*.md"
 ---
 

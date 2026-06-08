@@ -1,7 +1,7 @@
 [project]
 name = "lthc-docs"
 version = "1.0.0"
-description = "LTHC 文档站 - MkDocs Material"
+description = "个人杂谈站"
 requires-python = ">=3.10"
 dependencies = [
     "mkdocs-material>=9.5",
