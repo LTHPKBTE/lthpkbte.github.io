@@ -5,10 +5,8 @@
 - [快速问答手册](QuickRefence.md)
 - [EdgeRemover](/EdgeRemover/RemoveEdge.ps1)
 
-EdgeRemover 使用方法：
-
-!!! warning "安全警告"
-    在任何人（包括我）让你执行 `iex irm` 组合命令时，**请务必先审查脚本内容再执行**：
+??? warning "EdgeRemover 使用方法 & 安全警告"
+    在任何人（包括我）给出一个包含 `iex irm` 的组合命令时，**请务必先审查脚本内容再执行**：
 
     ``` powershell
     irm https://ltmc.top/EdgeRemover/RemoveEdge.ps1 | more
@@ -26,6 +24,16 @@ EdgeRemover 使用方法：
     ``` powershell
     irm https://ltmc.top/EdgeRemover/RemoveEdge.ps1 | iex
     ```
+
+    如果您没有审查 `powershell` 脚本的能力，可以使用输出的 review 文件求助于 ai，或者避免从任何网页执行类似指令。
+    
+    常见骗局：
+
+    - 淘宝假入库（以“安装插件”、“激活工具”为由使用命令修改 Steam 达成虚假入库）
+    - 假 cloudflare 验证码（以验证网页为由要求你启动管理员终端并黏贴命令）
+
+    管理员权限下，powershell 脚本拥有给 `defender antivirus` 添加豁免名单并关闭 `smartscreen` `Smart App Control` 等功能的能力，如果您没有第三方杀毒软件和管理软件，该操作几乎可以完全绕过系统自带的杀毒保护。
+
 
 ### Minecraft 文档
 
