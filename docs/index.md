@@ -32,7 +32,7 @@
     - 淘宝假入库（以“安装插件”、“激活工具”为由使用命令修改 Steam 达成虚假入库）
     - 假 cloudflare 验证码（以验证网页为由要求你启动管理员终端并黏贴命令）
 
-    管理员权限下，powershell 脚本拥有给 `defender antivirus` 添加豁免名单并关闭 `smartscreen` `Smart App Control` 等功能的能力，如果您没有第三方杀毒软件和管理软件，该操作几乎可以完全绕过系统自带的杀毒保护。
+    管理员权限下，powershell 脚本拥有给 `defender antivirus` 添加豁免名单并关闭 `smartscreen` `Smart App Control` 等功能的能力[^1] ，如果您没有第三方杀毒软件和管理软件，该操作几乎可以完全绕过系统自带的杀毒保护。
 
 
 ### Minecraft 文档
@@ -67,3 +67,9 @@
 
 - QQ: 2827927233
 - Bilibili: [Java8ver64/106366650](https://space.bilibili.com/106366650)
+
+---
+
+## 脚注
+
+[^1]: <https://learn.microsoft.com/en-us/powershell/module/defender/>
