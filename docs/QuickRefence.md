@@ -434,8 +434,6 @@ licensed under OPL v1
 
 ## 问答存档库
 
-快速索引/搜索页：[RefenceSearch.html](/RefenceSearch.html)
-
 ### N.001
 
 索引：隧道创建、网络高峰期、节点消失  
