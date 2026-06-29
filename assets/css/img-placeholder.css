@@ -3,9 +3,12 @@
    ============================================================ */
 
 /* Blur 模糊占位 — 由 JS 的 lazy-blur class 控制，非 CSS 自动生效 */
+img.lazy-blur,
+img.lazy-loaded {
+  transition: filter 0.4s ease-out;
+}
 img.lazy-blur {
   filter: blur(10px);
-  transition: filter 0.4s ease-out;
 }
 img.lazy-loaded {
   filter: blur(0);
