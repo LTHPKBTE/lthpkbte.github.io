@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/css/img-placeholder.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -708,7 +710,7 @@
 
 
 <h1 id="uuid">关于 UUID 修复选项</h1>
-<p><img alt="一个联机模组的截图" src="../assets/mc-mcwifipnp-setting-j54tnov5.avif" /></p>
+<p><img alt="一个联机模组的截图" data-src="../assets/mc-mcwifipnp-setting-j54tnov5.avif" data-thumbhash="E+gFHIICdrhbhoqFh2jJkJXHCw==" height="1080" loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAASCAYAAAA6yNxSAAAAK0lEQVR4nGPUs7D4zzCAgGkgLR91wKgDRh0w6oBRB4w6YNQBow5gYGBgAABJ/wHB4WmoTwAAAABJRU5ErkJggg==" style="aspect-ratio: 1920/1080; max-width: 100%; height: auto" width="1920"/></p>
 <p>联机模组提供的 “正版验证” 选项中， <code>离线+UUID修复</code> 或 <code>关闭+UUID修复</code> 的说明：</p>
 <p>此功能在尝试连接验证服务器获取玩家的在线UUID失败时，会转而使用客户端上传的离线UUID作为备用。在网络不稳定的情况下，这可能导致服务器在玩家的在线与离线UUID之间切换，从而造成该玩家的背包、进度等存档数据丢失。</p>
 <p>为保证存档的稳定性，建议从一开始就确定服务器的验证模式：若所有玩家均为正版，请始终保持“启用”；若有非正版玩家，请始终保持“禁用”。请勿在世界存档使用过程中切换验证模式。</p>
@@ -772,6 +774,10 @@
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/js/unlazy.min.js"></script>
+      
+        <script src="../../assets/js/img-placeholder-init.js"></script>
       
     
   </body>

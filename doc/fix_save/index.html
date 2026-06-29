@@ -51,6 +51,8 @@
       
     
     
+      <link rel="stylesheet" href="../../assets/css/img-placeholder.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -715,14 +717,14 @@
 </li>
 <li>
 <p>在这个文件中，您会看到一个或多个玩家名及其对应的UUID列表。当存档丢失问题发生时，通常会发现同一个玩家名对应着两个不同的UUID，一个是正版验证时使用的在线UUID，另一个是离线UUID。
-   <img alt="usernamecache.json" src="../assets/2025-09-06-17-32-45-f921868c-097f-41b0-a40f-5a7494940737.png" /></p>
+   <img alt="usernamecache.json" data-src="../assets/2025-09-06-17-32-45-f921868c-097f-41b0-a40f-5a7494940737.png" data-thumbhash="yvcBC4I9ZmWfmWa3h4BkCEg=" height="359" loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAOCAYAAABO3B6yAAAAJklEQVR4nGOU1DH9zzCAgGkgLR91wKgDRh0w6oBRB4w6gIGBgQEAyPoBlV5r2dgAAAAASUVORK5CYII=" style="aspect-ratio: 924/359; max-width: 100%; height: auto" width="924"/></p>
 </li>
 <li>
 <p>接下来，定位到具体的玩家数据文件。路径为：<code>.minecraft\versions\&lt;版本名&gt;\saves\&lt;世界名&gt;\playerdata\</code> 。此文件夹内存放着以UUID命名的 .dat 文件，每个文件都对应一份玩家的存档数据。</p>
 </li>
 <li>
 <p>对照 usernamecache.json 文件中的信息，在 playerdata 文件夹里找到属于该玩家的两个 .dat 文件。您可以通过“修改日期”来区分它们：较早创建的文件是包含您进度的旧存档，而最近创建的则是游戏生成的新存档（空存档）。
-   <img alt="对照表" src="../assets/2025-09-06-17-33-40-b05db8f3-dc13-44b9-828a-fa997ef3d448.avif" /></p>
+   <img alt="对照表" data-src="../assets/2025-09-06-17-33-40-b05db8f3-dc13-44b9-828a-fa997ef3d448.avif" data-thumbhash="yQcCDIIGmUi5e3azfH1IcpAyBw==" height="1154" loading="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAASCAYAAAA6yNxSAAAAK0lEQVR4nGMUVjX7zzCAgGkgLR91wKgDRh0w6oBRB4w6YNQBow5gYGBgAACWyAGRG6WuQAAAAABJRU5ErkJggg==" style="aspect-ratio: 2143/1154; max-width: 100%; height: auto" width="2143"/></p>
 </li>
 <li>
 <p>要恢复数据，请执行以下步骤：</p>
@@ -792,6 +794,10 @@
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/js/unlazy.min.js"></script>
+      
+        <script src="../../assets/js/img-placeholder-init.js"></script>
       
     
   </body>

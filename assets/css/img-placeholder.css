@@ -1,0 +1,21 @@
+/* ThumbHash 模糊占位 → 真实图片 过渡动画 */
+img[data-thumbhash] {
+  /* 初始模糊效果 */
+  filter: blur(10px);
+  transition: filter 0.4s ease-out;
+
+  /* 防止破图 */
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+img[data-thumbhash].lazy-loaded {
+  filter: blur(0);
+}
+
+/* 降级：如果 JS 未加载，至少保证 aspect-ratio 生效防 CLS */
+img[width][height] {
+  max-width: 100%;
+  height: auto;
+}
