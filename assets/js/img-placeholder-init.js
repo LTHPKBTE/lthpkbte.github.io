@@ -80,24 +80,19 @@
 
   function boot() {
     processScope(document);
-    var target = document.querySelector('article.md-content__inner')
-      || document.querySelector('.md-content')
-      || document.body;
-    var observer = new MutationObserver(function (mutations) {
-      for (var i = 0; i < mutations.length; i++) {
-        var added = mutations[i].addedNodes;
-        for (var j = 0; j < added.length; j++) {
-          var node = added[j];
-          if (node.nodeType !== 1) continue;
-          if ((node.matches && node.matches('img[data-thumbhash]'))
-              || (node.querySelector && node.querySelector('img[data-thumbhash]'))) {
-            processScope(document);
-            return;
-          }
-        }
-      }
+
+    // 监听整个 document.body（永远不会被替换），捕捉所有 DOM 变化
+    // 包括 MkDocs Material instant navigation 替换 <article> 导致的图片注入
+    var observerTimer = null;
+    var observer = new MutationObserver(function () {
+      if (observerTimer) return; // requestAnimationFrame 防抖
+      observerTimer = requestAnimationFrame(function () {
+        observerTimer = null;
+        processScope(document);
+      });
     });
-    observer.observe(target, { childList: true, subtree: true });
+
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   if (document.readyState === 'loading') {
