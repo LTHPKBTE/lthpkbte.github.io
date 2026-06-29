@@ -30,6 +30,17 @@ theme:
 plugins:
   - search:
       lang: zh
+      search_index_only: false
+
+hooks:
+  - plugins/img_placeholders/hooks.py
+
+extra_css:
+  - assets/css/img-placeholder.css
+
+extra_javascript:
+  - assets/js/unlazy.min.js
+  - assets/js/img-placeholder-init.js
 
 markdown_extensions:
   - attr_list

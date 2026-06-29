@@ -5,4 +5,7 @@ description = "个人杂谈站"
 requires-python = ">=3.10"
 dependencies = [
     "mkdocs-material>=9.5",
+    "thumbhash>=0.1",
+    "Pillow>=10.0",
+    "beautifulsoup4>=4.12",
 ]

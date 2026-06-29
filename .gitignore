@@ -1,6 +1,10 @@
 # MkDocs build output
 site/
 
+# Python cache
+**/__pycache__/
+*.py[cod]
+
 # Basic Jekyll gitignores (legacy, kept for reference)
 _site/
 .sass-cache/
