@@ -1,20 +1,46 @@
-/* ThumbHash 模糊占位 → 真实图片 过渡动画 */
-img[data-thumbhash] {
-  /* 初始模糊效果 */
+/* ============================================================
+   图片占位空间 + ThumbHash 模糊预载 样式
+   ============================================================ */
+
+/* Blur 模糊占位 — 由 JS 的 lazy-blur class 控制，非 CSS 自动生效 */
+img.lazy-blur {
   filter: blur(10px);
   transition: filter 0.4s ease-out;
-
-  /* 防止破图 */
-  object-fit: cover;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
-
-img[data-thumbhash].lazy-loaded {
+img.lazy-loaded {
   filter: blur(0);
 }
 
-/* 降级：如果 JS 未加载，至少保证 aspect-ratio 生效防 CLS */
+/* 包裹容器 — 定位 overlay 用，JS 自动创建 */
+.img-placeholder-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+/* Overlay 加载指示器 — 浮在模糊层右下角 */
+.img-placeholder-overlay {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 1px 7px;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.img-placeholder-overlay.is-visible {
+  opacity: 1;
+}
+.img-placeholder-overlay.is-warning {
+  background: rgba(180, 50, 50, 0.8);
+}
+
+/* 降级：JS 未加载时至少保留 aspect-ratio 防 CLS */
 img[width][height] {
   max-width: 100%;
   height: auto;
