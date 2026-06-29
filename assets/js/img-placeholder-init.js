@@ -46,7 +46,7 @@
     img._thOverlay = overlay;
     img._thTimeouts = [
       setTimeout(function () {
-        overlay.textContent = 加载中…;
+        overlay.textContent = 加载中;
         overlay.classList.add('is-visible');
       }, 5000),
       setTimeout(function () {
