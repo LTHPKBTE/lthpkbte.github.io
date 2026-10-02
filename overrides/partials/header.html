@@ -52,8 +52,8 @@
     {% if config.extra.pagefind | d(true, true) %}
       {#- Pagefind 索引与 UI 资源位于 site/pagefind/，以站点根路径引用 -#}
       <pagefind-config bundle-path="/pagefind/" base-url="/" lang="{{ config.theme.language | d('zh', true) }}"></pagefind-config>
-      {#- 页头可见的搜索按钮（图标），快捷键 Ctrl/⌘+K -#}
-      <pagefind-modal-trigger class="md-header__button pagefind-header-trigger" shortcut="mod+k" hide-shortcut compact placeholder="{{ lang.t('search.placeholder') }}"></pagefind-modal-trigger>
+      {#- 页头可见的搜索按钮（图标），快捷键 Ctrl/⌘+K；样式见 assets/css/pagefind-theme.css -#}
+      <pagefind-modal-trigger class="pagefind-header-trigger" shortcut="mod+k" hide-shortcut compact placeholder="{{ lang.t('search.placeholder') }}"></pagefind-modal-trigger>
       {#- 仅用于注册 “/” 快捷键的隐藏触发器（与 Material 旧行为一致） -#}
       <pagefind-modal-trigger class="pagefind-header-trigger-keyboard" shortcut="/" hide-shortcut compact aria-hidden="true" tabindex="-1"></pagefind-modal-trigger>
       {#- <pagefind-modal> 由 plugins/pagefind/hooks.py 注入到 </body> 之前， -#}

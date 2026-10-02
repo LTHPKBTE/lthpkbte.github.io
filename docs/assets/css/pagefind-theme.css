@@ -4,8 +4,16 @@
  * 1. 把页头触发器渲染成 Material 的图标按钮
  * 2. 让弹窗 / 结果列表跟随 Material 的亮色、暗色配色方案
  *
- * Pagefind 自身只提供亮色默认值，且不会响应 prefers-color-scheme，
- * 因此暗色模式需要在这里显式覆盖 --pf-* 变量。
+ * 改动前请注意两个坑：
+ *
+ * ① Material 把配色方案写在 <body data-md-color-scheme="...">，不是 <html>。
+ *    所以选择器必须能匹配 body（下面同时写了 html 以防上游改动）。
+ *    因为 body 上的选择器特异性是 (0,1,1)，高于 Pagefind 自己的 `:root`
+ *    (0,1,0)，因此变量覆盖与样式表加载顺序无关。
+ *
+ * ② Pagefind 内部规则用 `:is(*, #\#)` 重复三次把特异性抬到 ID 级（≈3,1,0），
+ *    普通类选择器盖不住。配色靠覆盖 --pf-* 变量绕过这一问题；
+ *    但页头触发器必须改它的硬编码属性，所以那里只能加 `!important`。
  */
 
 /* ------------------------------------------------------------------ */
@@ -16,70 +24,94 @@
 .pagefind-header-trigger-keyboard {
   display: inline-flex;
   align-items: center;
-  color: var(--md-primary-bg-color);
+  justify-content: center;
+  margin: 0.2rem;
+  padding: 0.4rem;
+  color: currentcolor;
+  cursor: pointer;
+  transition: opacity 0.25s;
+
+  /* 这些变量会继承给内部的 .pf-trigger-btn，
+     于是不用 !important 就能改掉它的底色 / 边框 */
+  --pf-font: inherit;
+  --pf-input-height: 1.2rem;
+  --pf-background: transparent;
+  --pf-border: transparent;
+  --pf-border-focus: transparent;
+  --pf-border-radius: 0.1rem;
 }
 
-/* 仅用于注册 “/” 快捷键，不参与布局（仍在 DOM 中，快捷键照常生效） */
+/* 仅用于注册 “/” 快捷键；不参与布局（仍在 DOM 中，快捷键照常生效） */
 .pagefind-header-trigger-keyboard {
   display: none;
 }
 
-.pagefind-header-trigger .pf-trigger-btn {
-  width: auto;
-  min-width: 2.4rem;
-  height: 2.4rem;
-  padding: 0 0.4rem;
-  gap: 0;
-  background: transparent;
-  border: 0;
-  border-radius: 0.1rem;
-  color: inherit;
+.pagefind-header-trigger:hover {
   opacity: 0.7;
-  transition: opacity 0.25s, background-color 0.25s;
 }
 
-.pagefind-header-trigger .pf-trigger-btn:hover {
-  opacity: 1;
-  background-color: rgba(255, 255, 255, 0.1);
+/* Pagefind 把 .pf-trigger-btn 的规则抬到了 ID 级特异性，只能靠 !important 覆盖 */
+.pagefind-header-trigger .pf-trigger-btn {
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: currentcolor !important;
+  transition: none !important;
 }
 
 .pagefind-header-trigger .pf-trigger-icon {
-  width: 1.2rem;
-  height: 1.2rem;
-  background: currentColor;
+  width: 1.2rem !important;
+  height: 1.2rem !important;
+  background: currentcolor !important;
 }
 
 /* ------------------------------------------------------------------ */
-/* 配色：基础变量                                                      */
+/* 配色：亮色（Material default）                                      */
 /* ------------------------------------------------------------------ */
 
-:root {
+html[data-md-color-scheme="default"],
+body[data-md-color-scheme="default"] {
   --pf-font: inherit;
   --pf-border-radius: 0.2rem;
-  --pf-mark: var(--md-accent-fg-color, #4051b5);
-  --pf-outline-focus: var(--md-accent-fg-color, #4051b5);
-}
 
-html[data-md-color-scheme="default"] {
-  --pf-mark: var(--md-accent-fg-color, #4051b5);
-  --pf-outline-focus: var(--md-accent-fg-color, #4051b5);
+  --pf-text: var(--md-default-fg-color);
+  --pf-text-secondary: var(--md-default-fg-color--light);
+  --pf-text-muted: var(--md-default-fg-color--light);
+  --pf-background: var(--md-default-bg-color);
+  --pf-border: var(--md-default-fg-color--lightest);
+  --pf-border-focus: var(--md-default-fg-color--light);
+  --pf-hover: var(--md-default-fg-color--lightest);
+  --pf-skeleton: var(--md-default-fg-color--lightest);
+
+  --pf-mark: var(--md-accent-fg-color);
+  --pf-outline-focus: var(--md-accent-fg-color);
 }
 
 /* ------------------------------------------------------------------ */
 /* 配色：暗色（Material slate）                                        */
 /* ------------------------------------------------------------------ */
 
-html[data-md-color-scheme="slate"] {
+html[data-md-color-scheme="slate"],
+body[data-md-color-scheme="slate"] {
+  --pf-font: inherit;
+  --pf-border-radius: 0.2rem;
+
   --pf-text: var(--md-default-fg-color);
   --pf-text-secondary: var(--md-default-fg-color--light);
-  --pf-text-muted: var(--md-default-fg-color--lighter);
-  --pf-background: var(--md-default-bg-color);
+  --pf-text-muted: var(--md-default-fg-color--light);
+  /* 用比页面底色稍亮的代码底色，让弹窗从背静中分层出来 */
+  --pf-background: var(--md-code-bg-color);
   --pf-border: var(--md-default-fg-color--lightest);
   --pf-border-focus: var(--md-default-fg-color--light);
-  --pf-hover: rgba(255, 255, 255, 0.06);
-  --pf-skeleton: rgba(255, 255, 255, 0.08);
+  --pf-hover: var(--md-default-fg-color--lightest);
+  --pf-skeleton: var(--md-default-fg-color--lightest);
   --pf-skeleton-shine: rgba(255, 255, 255, 0.16);
-  --pf-mark: var(--md-accent-fg-color, #a2a8ff);
+
+  --pf-mark: var(--md-accent-fg-color);
   --pf-scroll-shadow: rgba(0, 0, 0, 0.4);
 
   --pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
@@ -91,5 +123,17 @@ html[data-md-color-scheme="slate"] {
   --pf-error-text: #f87171;
   --pf-error-text-secondary: #fca5a5;
 
-  --pf-outline-focus: var(--md-accent-fg-color, #a2a8ff);
+  --pf-outline-focus: var(--md-accent-fg-color);
+}
+
+/* ------------------------------------------------------------------ */
+/* 弹窗原生焦点环                                                      */
+/* ------------------------------------------------------------------ */
+
+/* Pagefind 只在它自己管理的元素上清掉了原生 outline，漏掉了 <dialog> 本身，
+   于是浏览器会给获得焦点的弹窗画一圈原生焦点环。
+   弹窗内部已有自己的高对比度焦点样式，这里去掉这圈多余的描边。 */
+pagefind-modal .pf-modal:focus-visible,
+pagefind-modal dialog:focus-visible {
+  outline: none;
 }
