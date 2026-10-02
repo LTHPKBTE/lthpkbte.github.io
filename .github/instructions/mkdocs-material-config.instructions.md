@@ -35,6 +35,16 @@ applyTo: "docs/**/*.md"
 - 新增页面后需同步更新 `mkdocs.yml` 中的 `nav`。
 - 页面标题使用中文，与 frontmatter 或一级标题保持一致。
 
+## 搜索
+
+本站**不使用** Material 内置的 `search` 插件，搜索由构建后的 [Pagefind](https://pagefind.app/) 提供：
+
+- 索引命令：`npx pagefind --site site --force-language zh`（须在 `mkdocs build` 之后运行）。
+- 正文由 `plugins/pagefind/hooks.py` 自动加上 `data-pagefind-body`，
+  页头触发器与弹窗也由该 hook 及 `overrides/partials/header.html` 注入。
+- **写文档时无需为搜索做任何额外配置**；只要内容在正文中即可被检索到。
+- 如需让某段内容不被索引，给元素加 `data-pagefind-ignore`。
+
 ## 可用 Markdown 扩展
 
 ### 通用扩展

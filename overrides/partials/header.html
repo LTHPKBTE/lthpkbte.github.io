@@ -1,0 +1,73 @@
+{#-
+  Material header 覆盖模板 —— 将内置搜索替换为 Pagefind Component UI。
+
+  与 Material 9.7.6 的 partials/header.html 保持一致，仅把原先依赖
+  "material/search" 插件的搜索块替换为 Pagefind 组件。
+  索引文件由 `pagefind --site site` 在构建后生成到 site/pagefind/。
+-#}
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+  {% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+  {% set class = class ~ " md-header--shadow" %}
+{% endif %}
+<header class="{{ class }}" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="{{ lang.t('header') }}">
+    <a href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}" title="{{ config.site_name | e }}" class="md-header__button md-logo" aria-label="{{ config.site_name }}" data-md-component="logo">
+      {% include "partials/logo.html" %}
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      {% set icon = config.theme.icon.menu or "material/menu" %}
+      {% include ".icons/" ~ icon ~ ".svg" %}
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            {{ config.site_name }}
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            {% if page.meta and page.meta.title %}
+              {{ page.meta.title }}
+            {% else %}
+              {{ page.title }}
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    </div>
+    {% if config.theme.palette %}
+      {% if not config.theme.palette is mapping %}
+        {% include "partials/palette.html" %}
+      {% endif %}
+    {% endif %}
+    {% if not config.theme.palette is mapping %}
+      {% include "partials/javascripts/palette.html" %}
+    {% endif %}
+    {% if config.extra.alternate %}
+      {% include "partials/alternate.html" %}
+    {% endif %}
+    {% if config.extra.pagefind | d(true, true) %}
+      {#- Pagefind 索引与 UI 资源位于 site/pagefind/，以站点根路径引用 -#}
+      <pagefind-config bundle-path="/pagefind/" base-url="/" lang="{{ config.theme.language | d('zh', true) }}"></pagefind-config>
+      {#- 页头可见的搜索按钮（图标），快捷键 Ctrl/⌘+K -#}
+      <pagefind-modal-trigger class="md-header__button pagefind-header-trigger" shortcut="mod+k" hide-shortcut compact placeholder="{{ lang.t('search.placeholder') }}"></pagefind-modal-trigger>
+      {#- 仅用于注册 “/” 快捷键的隐藏触发器（与 Material 旧行为一致） -#}
+      <pagefind-modal-trigger class="pagefind-header-trigger-keyboard" shortcut="/" hide-shortcut compact aria-hidden="true" tabindex="-1"></pagefind-modal-trigger>
+      {#- <pagefind-modal> 由 plugins/pagefind/hooks.py 注入到 </body> 之前， -#}
+      {#- 避免页头（可能带 transform）影响弹窗定位。 -#}
+    {% endif %}
+    {% if config.repo_url %}
+      <div class="md-header__source">
+        {% include "partials/source.html" %}
+      </div>
+    {% endif %}
+  </nav>
+  {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+      {% include "partials/tabs.html" %}
+    {% endif %}
+  {% endif %}
+</header>

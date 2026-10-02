@@ -1,0 +1,95 @@
+/**
+ * Pagefind Component UI —— 与 Material for MkDocs 主题对齐
+ *
+ * 1. 把页头触发器渲染成 Material 的图标按钮
+ * 2. 让弹窗 / 结果列表跟随 Material 的亮色、暗色配色方案
+ *
+ * Pagefind 自身只提供亮色默认值，且不会响应 prefers-color-scheme，
+ * 因此暗色模式需要在这里显式覆盖 --pf-* 变量。
+ */
+
+/* ------------------------------------------------------------------ */
+/* 页头触发器                                                          */
+/* ------------------------------------------------------------------ */
+
+.pagefind-header-trigger,
+.pagefind-header-trigger-keyboard {
+  display: inline-flex;
+  align-items: center;
+  color: var(--md-primary-bg-color);
+}
+
+/* 仅用于注册 “/” 快捷键，不参与布局（仍在 DOM 中，快捷键照常生效） */
+.pagefind-header-trigger-keyboard {
+  display: none;
+}
+
+.pagefind-header-trigger .pf-trigger-btn {
+  width: auto;
+  min-width: 2.4rem;
+  height: 2.4rem;
+  padding: 0 0.4rem;
+  gap: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0.1rem;
+  color: inherit;
+  opacity: 0.7;
+  transition: opacity 0.25s, background-color 0.25s;
+}
+
+.pagefind-header-trigger .pf-trigger-btn:hover {
+  opacity: 1;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.pagefind-header-trigger .pf-trigger-icon {
+  width: 1.2rem;
+  height: 1.2rem;
+  background: currentColor;
+}
+
+/* ------------------------------------------------------------------ */
+/* 配色：基础变量                                                      */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --pf-font: inherit;
+  --pf-border-radius: 0.2rem;
+  --pf-mark: var(--md-accent-fg-color, #4051b5);
+  --pf-outline-focus: var(--md-accent-fg-color, #4051b5);
+}
+
+html[data-md-color-scheme="default"] {
+  --pf-mark: var(--md-accent-fg-color, #4051b5);
+  --pf-outline-focus: var(--md-accent-fg-color, #4051b5);
+}
+
+/* ------------------------------------------------------------------ */
+/* 配色：暗色（Material slate）                                        */
+/* ------------------------------------------------------------------ */
+
+html[data-md-color-scheme="slate"] {
+  --pf-text: var(--md-default-fg-color);
+  --pf-text-secondary: var(--md-default-fg-color--light);
+  --pf-text-muted: var(--md-default-fg-color--lighter);
+  --pf-background: var(--md-default-bg-color);
+  --pf-border: var(--md-default-fg-color--lightest);
+  --pf-border-focus: var(--md-default-fg-color--light);
+  --pf-hover: rgba(255, 255, 255, 0.06);
+  --pf-skeleton: rgba(255, 255, 255, 0.08);
+  --pf-skeleton-shine: rgba(255, 255, 255, 0.16);
+  --pf-mark: var(--md-accent-fg-color, #a2a8ff);
+  --pf-scroll-shadow: rgba(0, 0, 0, 0.4);
+
+  --pf-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --pf-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  --pf-error-bg: rgba(220, 38, 38, 0.15);
+  --pf-error-border: rgba(220, 38, 38, 0.35);
+  --pf-error-text: #f87171;
+  --pf-error-text-secondary: #fca5a5;
+
+  --pf-outline-focus: var(--md-accent-fg-color, #a2a8ff);
+}

@@ -7,6 +7,7 @@ edit_uri: blob/main/docs/
 theme:
   name: material
   language: zh
+  custom_dir: overrides
   features:
     - navigation.instant
     - navigation.tracking
@@ -27,16 +28,16 @@ theme:
         icon: material/weather-sunny
         name: 切换亮色模式
 
-plugins:
-  - search:
-      lang: zh
-      search_index_only: false
-
+# 搜索由 Pagefind 提供（构建后索引），不再使用 Material 内置 search 插件。
+# 构建站点后需要额外运行索引：
+#   npx pagefind --site site --force-language zh
 hooks:
   - plugins/img_placeholders/hooks.py
+  - plugins/pagefind/hooks.py
 
 extra_css:
   - assets/css/img-placeholder.css
+  - assets/css/pagefind-theme.css
 
 extra_javascript:
   - assets/js/unlazy.min.js
