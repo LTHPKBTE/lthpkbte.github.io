@@ -19,7 +19,7 @@ applyTo: "docs/**/*.md"
 
 ```
 - 首页: index.md
-- 快速问答手册: QuickRefence.md
+- 快速问答手册: QuickReference.md
 - 文档:
   - 关于 UUID 修复: doc/talk_about_minecraft.md
   - 存档丢失补救: doc/fix_save.md

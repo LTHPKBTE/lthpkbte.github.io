@@ -2,7 +2,7 @@
 
 ## 快速导航
 
-- [快速问答手册](QuickRefence.md)
+- [快速问答手册](QuickReference.md)
 - [EdgeRemover](/EdgeRemover/RemoveEdge.ps1)
 
 ??? warning "EdgeRemover 使用方法 & 安全警告"

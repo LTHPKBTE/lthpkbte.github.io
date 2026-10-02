@@ -1,5 +1,5 @@
 [project]
-name = "lthc-docs"
+name = "java-docs"
 version = "1.0.0"
 description = "个人杂谈站"
 requires-python = ">=3.10"

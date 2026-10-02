@@ -38,10 +38,6 @@ jobs:
 
       - name: Copy root-level files to site output
         run: |
-          # 保留根目录的 HTML 文件
-          cp -v status.html site/ 2>/dev/null || true
-          cp -v smartapp.html site/ 2>/dev/null || true
-          cp -v RefenceSearch.html site/ 2>/dev/null || true
           # 保留 CNAME 自定义域名文件
           cp -v CNAME site/ 2>/dev/null || true
           # 保留根目录 assets
